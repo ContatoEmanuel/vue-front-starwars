@@ -9,16 +9,16 @@
 
     <div class="container">
 
-      <form>
+      <form @submit.prevent="adicionar">
 
           <label>Nome</label>
-          <input type="text" placeholder="Nome">
+          <input type="text" placeholder="Nome" v-model="planeta.nome">
           <label>Clima</label>
-          <input type="text" placeholder="Clima">
+          <input type="text" placeholder="Clima" v-model="planeta.clima">
           <label>Terreno</label>
-          <input type="text" placeholder="Terreno">
+          <input type="text" placeholder="Terreno" v-model="planeta.terreno">
 
-          <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
+          <button class="waves-effect waves-light btn-small">Adicionar<i class="material-icons left">save</i></button>
 
       </form>
 
@@ -66,6 +66,11 @@ export default{
 
   data(){
     return{
+      planeta:{
+        nome:'',
+        clima:'',
+        terreno:''
+      },
       planetas:[]
     }
   },
@@ -75,7 +80,16 @@ export default{
       console.log(resposta.data)
       this.planetas=resposta.data
     })
-  }  
+  },
+  
+  methods:{
+    adicionar(){
+      Planeta.adicionar(this.planeta).then(resposta => {
+        this.resposta = resposta
+        alert('Planeta Adicionado com Sucesso!')
+      })
+    }
+  }
 }
 </script>
 
