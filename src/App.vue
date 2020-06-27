@@ -15,8 +15,8 @@
           <input type="text" placeholder="Nome">
           <label>Clima</label>
           <input type="text" placeholder="Clima">
-          <label>Temperatura</label>
-          <input type="text" placeholder="Temperatura">
+          <label>Terreno</label>
+          <input type="text" placeholder="Terreno">
 
           <button class="waves-effect waves-light btn-small">Salvar<i class="material-icons left">save</i></button>
 
@@ -29,7 +29,7 @@
           <tr>
             <th>NOME</th>
             <th>CLIMA</th>
-            <th>TEMPERATURA</th>
+            <th>TERRENO</th>
             <th>OPÇÕES</th>
           </tr>
 
@@ -37,11 +37,11 @@
 
         <tbody>
 
-          <tr>
+          <tr v-for="planeta of planetas" :key="planeta.id">
 
-            <td>Tatooine</td>
-            <td>Árido</td>
-            <td>Deserto</td>
+            <td>{{planeta.nome}}</td>
+            <td>{{planeta.clima}}</td>
+            <td>{{planeta.terreno}}</td>
             <td>
               <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
@@ -60,6 +60,23 @@
 
 <script>
 
+import Planeta from './services/planetas'
+
+export default{
+
+  data(){
+    return{
+      planetas:[]
+    }
+  },
+
+  mounted(){
+    Planeta.listar().then(resposta => {
+      console.log(resposta.data)
+      this.planetas=resposta.data
+    })
+  }  
+}
 </script>
 
 <style>
