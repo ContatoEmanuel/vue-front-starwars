@@ -76,17 +76,23 @@ export default{
   },
 
   mounted(){
-    Planeta.listar().then(resposta => {
-      console.log(resposta.data)
-      this.planetas=resposta.data
-    })
+    this.listar()
   },
   
   methods:{
+
+    listar(){
+      Planeta.listar().then(resposta => { 
+        this.planetas=resposta.data
+      })
+    },
+
     adicionar(){
       Planeta.adicionar(this.planeta).then(resposta => {
+        this.planeta={}
         this.resposta = resposta
         alert('Planeta Adicionado com Sucesso!')
+        this.listar()
       })
     }
   }
