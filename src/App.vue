@@ -11,7 +11,7 @@
 
       <ul v-for="(erro,index) of errors" :key="index">
         <li v-if="index <= 0">
-          Erro <b>{{errors}}</b> - Os campos não podem ficar vazios!
+          <b>Os campos não podem ficar vazios!</b>
         </li>
       </ul>
 
@@ -49,7 +49,7 @@
             <td>{{planeta.clima}}</td>
             <td>{{planeta.terreno}}</td>
             <td>
-              <button class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
+              <button @click="atualizar(planeta)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
               <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
@@ -73,6 +73,7 @@ export default{
   data(){
     return{
       planeta:{
+        id:'',
         nome:'',
         clima:'',
         terreno:''
@@ -88,22 +89,39 @@ export default{
   
   methods:{
 
+    adicionar(){
+      
+      if(!this.planeta.id){
+        Planeta.adicionar(this.planeta).then(resposta => {
+          this.planeta={}
+          this.resposta = resposta
+          alert('Planeta Adicionado com Sucesso!')
+          this.listar()
+          this.errors=[]
+        }).catch(e =>{  
+          this.errors=e.response.data.error
+        })
+      }else{
+        Planeta.atualizar(this.planeta).then(resposta => {
+          this.planeta={}
+          this.resposta = resposta
+          alert('Planeta Atualizado com Sucesso!')
+          this.listar()
+          this.errors=[]
+        }).catch(e =>{  
+          this.errors=e.response.data.error
+        })
+      }
+    },
+
     listar(){
       Planeta.listar().then(resposta => { 
         this.planetas=resposta.data        
       })
     },
 
-    adicionar(){
-      Planeta.adicionar(this.planeta).then(resposta => {
-        this.planeta={}
-        this.resposta = resposta
-        alert('Planeta Adicionado com Sucesso!')
-        this.listar()
-        this.errors=[]
-      }).catch(e =>{
-        this.errors=e.response.data.error
-      })
+    atualizar(planeta){
+      this.planeta=planeta
     }
   }
 }
