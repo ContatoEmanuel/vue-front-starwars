@@ -9,6 +9,12 @@
 
     <div class="container">
 
+      <ul v-for="(erro,index) of errors" :key="index">
+        <li v-if="index <= 0">
+          Erro <b>{{errors}}</b> - Os campos não podem ficar vazios!
+        </li>
+      </ul>
+
       <form @submit.prevent="adicionar">
 
           <label>Nome</label>
@@ -71,7 +77,8 @@ export default{
         clima:'',
         terreno:''
       },
-      planetas:[]
+      planetas:[],
+      errors:[]
     }
   },
 
@@ -83,7 +90,7 @@ export default{
 
     listar(){
       Planeta.listar().then(resposta => { 
-        this.planetas=resposta.data
+        this.planetas=resposta.data        
       })
     },
 
@@ -93,6 +100,9 @@ export default{
         this.resposta = resposta
         alert('Planeta Adicionado com Sucesso!')
         this.listar()
+        this.errors=[]
+      }).catch(e =>{
+        this.errors=e.response.data.error
       })
     }
   }
