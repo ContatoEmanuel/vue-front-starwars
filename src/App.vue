@@ -24,7 +24,7 @@
           <label>Terreno</label>
           <input type="text" placeholder="Terreno" v-model="planeta.terreno">
 
-          <button class="waves-effect waves-light btn-small">Adicionar<i class="material-icons left">save</i></button>
+          <button class="waves-effect waves-light btn-small">Adicionar-Atualizar<i class="material-icons left">save</i></button>
 
       </form>
 
@@ -50,7 +50,7 @@
             <td>{{planeta.terreno}}</td>
             <td>
               <button @click="atualizar(planeta)" class="waves-effect btn-small blue darken-1"><i class="material-icons">create</i></button>
-              <button class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
+              <button @click="remover(planeta)" class="waves-effect btn-small red darken-1"><i class="material-icons">delete_sweep</i></button>
             </td>
 
           </tr>
@@ -120,13 +120,22 @@ export default{
       })
     },
 
+    remover(planeta){
+      if(confirm('Deseja Excluir o Planeta?')){
+        Planeta.remover(planeta).then(resposta =>{
+          this.resposta = resposta
+          this.listar()
+          this.errors=[]
+        }).catch(e=>{
+          this.errors=e.response.data.error
+        })
+      }
+      
+    },
+
     atualizar(planeta){
       this.planeta=planeta
     }
   }
 }
 </script>
-
-<style>
-
-</style>

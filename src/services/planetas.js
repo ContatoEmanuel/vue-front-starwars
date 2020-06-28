@@ -10,6 +10,11 @@ export default{
         return http.get('planetas')
     },
 
+    remover:(planeta)=>{
+        return http.delete('planeta',{data:planeta})
+    },
+    
+
     atualizar:(planeta)=>{
         return http.put('planeta', planeta)
     }
