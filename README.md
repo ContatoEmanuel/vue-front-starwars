@@ -1,24 +1,7 @@
-# planetas-front
+# Front-End em Vue para mapear planetas de Star Wars, utilizando API REST Java
 
-## Project setup
-```
-npm install
-```
+## Deploy Front:
+  https://vue-front-starwars.herokuapp.com
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Link da API REST:
+  https://github.com/ContatoEmanuel/java-apirest-starwars
