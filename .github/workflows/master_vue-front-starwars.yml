@@ -33,3 +33,7 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8aa3b780776c486cac0ebb687d85d0f4 }}
         package: .
+        
+    - name: npm run serve
+      run: |
+        npm run serve
